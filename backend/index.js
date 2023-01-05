@@ -1,14 +1,15 @@
+//const {db} = require("./db");
 express = require('express')
 api_routes = require('./Routes/routes.js')
-con = require('./db.js')
+//con = require('./db.js')
+
 const PORT = 8000
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded())
-let db = null;
-require("./db.js").then(pool => {
-    db = pool;
-});
+
+
+
 //all routes
 app.use('/api', api_routes.api_routes)
 
