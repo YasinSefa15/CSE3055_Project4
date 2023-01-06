@@ -1,8 +1,9 @@
 import axios from "axios"
 import {useEffect, useState} from "react";
 import Navbar from "../components/navbar";
+import Table from "../components/table";
 
-export default function Example() {
+export default function Stationer() {
     const [todos, setTodo] = useState([])
 
     useEffect(() => {
@@ -16,7 +17,8 @@ export default function Example() {
     return (
         <div>
             <Navbar></Navbar>
-            Example Page To Show Use Of Axios
+            Stationersss
+            <Table rows={[{"id": 1, "name": "sefa"},{"id": 2, "name": "isd"}]}></Table>
             <div>
                 {todos.map((todo, i) => (
                     <div className='card' key={i}>

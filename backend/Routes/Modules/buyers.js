@@ -1,11 +1,24 @@
-
 const express = require('express')
-
-
+//const {db} = require("../../db");
 
 const buyers_router = express.Router()
 
-//buyers_read
+async function getMultiple(page = 1){
+    const offset = helper.getOffset(page, config.listPerPage);
+    const rows = await db.query(
+        `SELECT id, name, released_year, githut_rank, pypl_rank, tiobe_rank 
+    FROM programming_languages LIMIT ${offset},${config.listPerPage}`
+    );
+    const data = helper.emptyOrRows(rows);
+    const meta = {page};
+
+    return {
+        data,
+        meta
+    }
+}
+
+//seller_read
 const {db} = require("../../db");
 buyers_router.get('/read', async (req, res) => {
 
@@ -24,29 +37,7 @@ buyers_router.get('/read', async (req, res) => {
 
 })
 
-buyers_router.post('/route2deneme',  async (req, res) => {
-    res.status(201).json({
-        "message": "routre 2 deneme mesaj",
-    })
 
-})
-
-buyers_router.get('/read', async (req, res) => {
-
-    try {
-        const result = await db.query("select * From Stationers s inner join Buyers b on s.StationerID = b.bStationerID.sStationerID inner join Addresses a on a.AddressID= s.AddressID\n")
-        res.status(200).json({
-            "message": "tüm alıcılar listelendi",
-            "result" : result.recordset
-        })
-    } catch (err) {
-        console.error(`Error while getting programming languages `, err.message);
-        res.status(400).json({
-            "message": "hata"
-        })
-    }
-
-})
 
 buyers_router.post('/create',  async (req, res) => {
     try {
@@ -98,5 +89,5 @@ buyers_router.delete('/delete',  async (req, res) => {
 
 })
 
-exports.routes = buyers_router
 
+exports.routes = buyers_router
