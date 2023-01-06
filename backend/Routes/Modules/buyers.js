@@ -1,6 +1,5 @@
 const express = require('express')
-const {db} = require("../../db");
-
+//const {db} = require("../../db");
 
 const buyers_router = express.Router()
 
@@ -38,29 +37,7 @@ buyers_router.get('/read', async (req, res) => {
 
 })
 
-sellers_router.post('/route2deneme',  async (req, res) => {
-    res.status(201).json({
-        "message": "routre 2 deneme mesaj",
-    })
 
-})
-
-sellers_router.get('/read', async (req, res) => {
-
-    try {
-        const result = await db.query("select * From Stationers s inner join Buyers b on s.StationerID = b.bStationerID.sStationerID inner join Addresses a on a.AddressID= s.AddressID\n")
-        res.status(200).json({
-            "message": "tüm alıcılar listelendi",
-            "result" : result.recordset
-        })
-    } catch (err) {
-        console.error(`Error while getting programming languages `, err.message);
-        res.status(400).json({
-            "message": "hata"
-        })
-    }
-
-})
 
 buyers_router.post('/create',  async (req, res) => {
     try {
@@ -113,3 +90,4 @@ buyers_router.delete('/delete',  async (req, res) => {
 })
 
 
+exports.routes = buyers_router

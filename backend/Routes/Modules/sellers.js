@@ -1,7 +1,6 @@
 const express = require('express')
 const {db} = require("../../db");
 
-
 const sellers_router = express.Router()
 
 async function getMultiple(page = 1){
@@ -61,22 +60,6 @@ sellers_router.get('/read', async (req, res) => {
 
 })
 
-buyers_router.post('/create',  async (req, res) => {
-    try {
-        let query = `insert into Sellers  (sStationerId) values ('${req.body.sStationerId}')`;
-        const result = await db.query(query)
-        res.status(201).json({
-            "message": "yeni satıcı oluşturuldu"
-        })
-    } catch (err) {
-        console.error(`Error while getting programming languages `, err.message);
-        res.status(400).json({
-            "message": "hata",
-            "err" : err.message
-        })
-    }
-
-})
 sellers_router.put('/update',  async (req, res) => {
     try {
         let query = `update Sellers set sStationerId  = '${req.body.sStationerId }'
