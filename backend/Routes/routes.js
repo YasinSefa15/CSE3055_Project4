@@ -1,4 +1,5 @@
 const express = require('express')
+const buyers_router =require('Modules/buyers.js')
 const sellers_router = require('./Modules/sellers.js')
 const user_router = require('./Modules/user.js')
 const auth_router = require('./Modules/auth.js')

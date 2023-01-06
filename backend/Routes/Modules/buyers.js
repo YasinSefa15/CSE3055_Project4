@@ -2,7 +2,7 @@ const express = require('express')
 const {db} = require("../../db");
 
 
-const sellers_router = express.Router()
+const buyers_router = express.Router()
 
 async function getMultiple(page = 1){
     const offset = helper.getOffset(page, config.listPerPage);
@@ -20,12 +20,13 @@ async function getMultiple(page = 1){
 }
 
 //seller_read
-sellers_router.get('/read', async (req, res) => {
+const {db} = require("../../db");
+buyers_router.get('/read', async (req, res) => {
 
     try {
-       const result = await db.query("select * from Sellers")
+        const result = await db.query("select * from Buyers")
         res.status(200).json({
-            "message": "tüm satıcılar listelendi",
+            "message": "tüm alıcılar listelendi",
             "result" : result.recordset
         })
     } catch (err) {
@@ -38,18 +39,18 @@ sellers_router.get('/read', async (req, res) => {
 })
 
 sellers_router.post('/route2deneme',  async (req, res) => {
-        res.status(201).json({
-            "message": "routre 2 deneme mesaj",
-        })
+    res.status(201).json({
+        "message": "routre 2 deneme mesaj",
+    })
 
 })
 
 sellers_router.get('/read', async (req, res) => {
 
     try {
-        const result = await db.query("select * From Stationers s inner join Sellers se on s.StationerID = se.sStationerID inner join Addresses a on a.AddressID= s.AddressID\n")
+        const result = await db.query("select * From Stationers s inner join Buyers b on s.StationerID = b.bStationerID.sStationerID inner join Addresses a on a.AddressID= s.AddressID\n")
         res.status(200).json({
-            "message": "tüm satıcılar listelendi",
+            "message": "tüm alıcılar listelendi",
             "result" : result.recordset
         })
     } catch (err) {
@@ -63,7 +64,7 @@ sellers_router.get('/read', async (req, res) => {
 
 buyers_router.post('/create',  async (req, res) => {
     try {
-        let query = `insert into Sellers  (sStationerId) values ('${req.body.sStationerId}')`;
+        let query = `insert into Buyers (bStationerId) values ('${req.body.bStationerId}')`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "yeni satıcı oluşturuldu"
@@ -77,13 +78,13 @@ buyers_router.post('/create',  async (req, res) => {
     }
 
 })
-sellers_router.put('/update',  async (req, res) => {
+buyers_router.put('/update',  async (req, res) => {
     try {
-        let query = `update Sellers set sStationerId  = '${req.body.sStationerId }'
+        let query = `update Buyers set bStationerId  = '${req.body.bStationerId }'
             where sStationerID = '${req.body.sStationerId}'`;
         const result = await db.query(query)
         res.status(201).json({
-            "message": "satıcı güncellendi"
+            "message": "alıcı güncellendi"
         })
     } catch (err) {
         console.error(`Error while getting programming languages `, err.message);
@@ -94,12 +95,12 @@ sellers_router.put('/update',  async (req, res) => {
     }
 
 })
-sellers_router.delete('/delete',  async (req, res) => {
+buyers_router.delete('/delete',  async (req, res) => {
     try {
-        let query = `DELETE from  Sellers where sStationerID = '${req.body.sStationerId}'`;
+        let query = `DELETE from  Buyers where bStationerID = '${req.body.bStationerId}'`;
         const result = await db.query(query)
         res.status(201).json({
-            "message": "satıcı silindi"
+            "message": "alıcı silindi"
         })
     } catch (err) {
         console.error(`Error while getting programming languages `, err.message);
@@ -111,7 +112,4 @@ sellers_router.delete('/delete',  async (req, res) => {
 
 })
 
-
-
-exports.routes = sellers_router
 
