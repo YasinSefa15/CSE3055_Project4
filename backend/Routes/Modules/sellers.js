@@ -18,10 +18,12 @@ async function getMultiple(page = 1){
         meta
     }
 }
-sellers_router.get('/', async (req, res) => {
+
+//seller_read
+sellers_router.get('/read', async (req, res) => {
 
     try {
-       const result = await db.query("select * from Stationers")
+       const result = await db.query("select * from Sellers")
         res.status(200).json({
             "message": "tüm satıcılar listelendi",
             "result" : result.recordset
@@ -42,4 +44,74 @@ sellers_router.post('/route2deneme',  async (req, res) => {
 
 })
 
+sellers_router.get('/read', async (req, res) => {
+
+    try {
+        const result = await db.query("select * From Stationers s inner join Sellers se on s.StationerID = se.sStationerID inner join Addresses a on a.AddressID= s.AddressID\n")
+        res.status(200).json({
+            "message": "tüm satıcılar listelendi",
+            "result" : result.recordset
+        })
+    } catch (err) {
+        console.error(`Error while getting programming languages `, err.message);
+        res.status(400).json({
+            "message": "hata"
+        })
+    }
+
+})
+
+stationer_router.post('/create',  async (req, res) => {
+    try {
+        let query = `insert into Sellers  (AddressID) values ('${req.body.sStationerId}')`;
+        const result = await db.query(query)
+        res.status(201).json({
+            "message": "yeni satıcı oluşturuldu"
+        })
+    } catch (err) {
+        console.error(`Error while getting programming languages `, err.message);
+        res.status(400).json({
+            "message": "hata",
+            "err" : err.message
+        })
+    }
+
+})
+sellers_router.put('/update',  async (req, res) => {
+    try {
+        let query = `update Buyers set sStationerId  = '${req.body.sStationerId }'
+            where sStationerID = '${req.body.sStationerId}'`;
+        const result = await db.query(query)
+        res.status(201).json({
+            "message": "satıcı güncellendi"
+        })
+    } catch (err) {
+        console.error(`Error while getting programming languages `, err.message);
+        res.status(400).json({
+            "message": "hata",
+            "err" : err.message
+        })
+    }
+
+})
+sellers_router.delete('/delete',  async (req, res) => {
+    try {
+        let query = `DELETE from  Sellers where sStationerID = '${req.body.sStationerId}'`;
+        const result = await db.query(query)
+        res.status(201).json({
+            "message": "satıcı silindi"
+        })
+    } catch (err) {
+        console.error(`Error while getting programming languages `, err.message);
+        res.status(400).json({
+            "message": "hata",
+            "err" : err.message
+        })
+    }
+
+})
+
+
+
 exports.routes = sellers_router
+
