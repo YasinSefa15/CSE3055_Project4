@@ -1,15 +1,17 @@
+
 const express = require('express')
+
+const address_router = express.Router()
+
 const {db} = require("../../db");
 
-const sellers_router = express.Router()
 
-//seller_read
-sellers_router.get('/read', async (req, res) => {
+address_router.get('/read', async (req, res) => {
 
     try {
-       const result = await db.query("select * from Sellers")
+        const result = await db.query("select * from Addresses")
         res.status(200).json({
-            "message": "tüm satıcılar listelendi",
+            "message": "tüm adresler listelendi",
             "result" : result.recordset
         })
     } catch (err) {
@@ -21,13 +23,30 @@ sellers_router.get('/read', async (req, res) => {
 
 })
 
-sellers_router.post('/create',  async (req, res) => {
+address_router.post('/create',  async (req, res) => {
     try {
-        //seller otomatik atiyor, warehouseID ekliyor.
-        let query = `insert into Sellers  (WarehouseID) values ('${req.body.WarehouseID}')`;
+        let query = `INSERT INTO Addresses (City, Address, sName)
+            VALUES ('${req.body.City}', '${req.body.Address}', '${req.body.sName}')`;
         const result = await db.query(query)
         res.status(201).json({
-            "message": "yeni seller oluşturuldu"
+            "message": "yeni address oluşturuldu"
+        })
+    } catch (err) {
+        console.error(`Error while getting programming languages `, err.message);
+        res.status(400).json({
+            "message": "hata",
+            "err" : err.message
+        })
+    }
+
+})
+address_router.put('/update',  async (req, res) => {
+    try {
+        let query = `update Addresses set  sName ='${req.body.sName}',City = '${req.body.City}',
+            Address ='${req.body.Address}' WHERE AddressID  = '${req.body.AddressID}'`;
+        const result = await db.query(query)
+        res.status(201).json({
+            "message": "address güncellendi"
         })
     } catch (err) {
         console.error(`Error while getting programming languages `, err.message);
@@ -39,30 +58,12 @@ sellers_router.post('/create',  async (req, res) => {
 
 })
 
-sellers_router.put('/update',  async (req, res) => {
+address_router.delete('/delete',  async (req, res) => {
     try {
-        // sStationerId'nin warehousunu guncelliyor
-        let query = `update Sellers set WarehouseID   = '${req.body.WarehouseID }'
-            where sStationerID = '${req.body.sStationerId}'`;
+        let query = `DELETE from  Addresses where AddressID = '${req.body.AddressID}'`;
         const result = await db.query(query)
         res.status(201).json({
-            "message": "satıcı güncellendi"
-        })
-    } catch (err) {
-        console.error(`Error while getting programming languages `, err.message);
-        res.status(400).json({
-            "message": "hata",
-            "err" : err.message
-        })
-    }
-
-})
-sellers_router.delete('/delete',  async (req, res) => {
-    try {
-        let query = `DELETE from  Sellers where sStationerID = '${req.body.sStationerId}'`;
-        const result = await db.query(query)
-        res.status(201).json({
-            "message": "satıcı silindi"
+            "message": "address silindi"
         })
     } catch (err) {
         console.error(`Error while getting programming languages `, err.message);
@@ -75,6 +76,5 @@ sellers_router.delete('/delete',  async (req, res) => {
 })
 
 
-
-exports.routes = sellers_router
+exports.routes = address_router
 
