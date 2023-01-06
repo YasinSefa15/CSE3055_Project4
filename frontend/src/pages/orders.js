@@ -18,12 +18,23 @@ export default function Orders() {
         <div>
             <Navbar></Navbar>
             sipariş butonu
-            {orders.length > 0 && <Table
-                rows={Object.keys(orders[0])}
-                data={orders}
-            ></Table>}
+            {(() => {
+                if (orders.length > 0) {
+                    return (
+                        <Table
+                            rows={Object.keys(orders[0])}
+                            data={orders}
+                        ></Table>
+                    )
+                } else {
+                    return (
+                        <div className="alert alert-info" role="alert">
+                            No Record Found!
+                        </div>
+                    )
+                }
+            })()}
 
-            {orders.length < 0 && <div> no data</div>}
 
         </div>
     )

@@ -9,7 +9,7 @@ const {db} = require("../../db");
 order_router.get('/', async (req, res) => {
 
     try {
-        const result = await db.query("select * from Addresses")
+        const result = await db.query("select * from Orders")
         res.status(200).json({
             "message": "tüm adresler listelendi",
             "result" : result.recordset

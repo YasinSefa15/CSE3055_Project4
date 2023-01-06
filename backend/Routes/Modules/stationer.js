@@ -61,7 +61,9 @@ stationer_router.put('/update',  async (req, res) => {
 //delete işlemi için delete
 stationer_router.delete('/delete',  async (req, res) => {
     try {
-        let query = `DELETE from  Stationers where StationerID = '${req.body.stationer_id}'`;
+        const StationerID = parseInt(req.body.StationerID)
+        console.log(req.body)
+        let query = `DELETE from  Stationers where StationerID = '${StationerID}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "kırtasiyeci silindi"

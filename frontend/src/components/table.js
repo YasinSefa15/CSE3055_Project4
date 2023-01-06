@@ -1,7 +1,27 @@
 import bootstrap from "bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from "axios";
+import {useState} from "react";
 
 export default function Table(props) {
+
+    const [tableData,setTableData] = useState(props.data)
+    const delete_action = async (e, props, id, column) => {
+        await axios.delete(props.delete_route, {
+           data : {  [column] : id}
+        })
+            .then((res) => {
+                const newList = tableData.filter((item) => {
+                    return item[column] !== id
+                });
+                setTableData(newList);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        console.log("delete tıklandı" + props.rows)
+    }
+
     return (
         <div className="container">
             <table className="table table-hover ">
@@ -14,7 +34,7 @@ export default function Table(props) {
                 </thead>
                 <tbody>
 
-                {props.data.map((data, i) => (
+                {tableData.map((data, i) => (
                     <tr key={i}>
                         {Object.keys(data).map((key, index) => (
                             <td>{data[key]}</td>
@@ -28,7 +48,9 @@ export default function Table(props) {
 
                             <button type="button"
                                     className="btn btn-outline-danger btn-sm"
-                                    style={{marginRight: 10}}>Delete
+                                    style={{marginRight: 10}}
+                                    onClick={event => delete_action(event,props,data[props.rows[0]],props.rows[0])}
+                            >Delete
                             </button>
                         </td>
 
