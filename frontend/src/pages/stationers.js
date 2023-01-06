@@ -5,6 +5,7 @@ import Table from "../components/table";
 
 export default function Stationer() {
     const [todos, setTodo] = useState([])
+    const [stationers, setStationers] = useState([])
 
     useEffect(() => {
         axios.get("https://jsonplaceholder.typicode.com/todos")
@@ -12,13 +13,26 @@ export default function Stationer() {
             .catch((err) => {
                 console.log(err);
             })
-    }, [todos])
+    }, [])
+
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/stationers")
+            .then(res => setStationers(res.data.result))
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
 
     return (
         <div>
             <Navbar></Navbar>
             Stationersss
-            <Table rows={[{"id": 1, "name": "sefa"},{"id": 2, "name": "isd"}]}></Table>
+            <Table
+                rows={["id","x"]}
+                data={stationers}
+            ></Table>
+
+            {console.log(stationers[0])}
             <div>
                 {todos.map((todo, i) => (
                     <div className='card' key={i}>
