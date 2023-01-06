@@ -16,10 +16,23 @@ export default function Table(props) {
 
                 {props.data.map((data, i) => (
                     <tr key={i}>
-                        {Object.keys(data).map((key,index)=> (
-
+                        {Object.keys(data).map((key, index) => (
                             <td>{data[key]}</td>
                         ))}
+
+                        <td>
+                            <button type="button"
+                                    className="btn btn-outline-primary btn-sm"
+                                    style={{marginLeft: 5, marginRight: 5}}>Edit
+                            </button>
+
+                            <button type="button"
+                                    className="btn btn-outline-danger btn-sm"
+                                    style={{marginRight: 10}}>Delete
+                            </button>
+                        </td>
+
+
                     </tr>
                 ))}
 

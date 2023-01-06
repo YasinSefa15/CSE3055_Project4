@@ -5,11 +5,11 @@ import Table from "../components/table";
 import {Link} from "react-router-dom";
 import Sellers from "./Seller";
 
-export default function Stationer() {
+export default function Buyers() {
     const [stationers, setStationers] = useState([])
 
-useEffect(() => {
-        axios.get("http://localhost:8000/api/stationers")
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/buyers")
             .then(res => setStationers(res.data.result))
             .catch((err) => {
                 console.log(err);
@@ -18,7 +18,7 @@ useEffect(() => {
 
     return (
         <div>
-         <Navbar></Navbar>
+            <Navbar></Navbar>
             <button type="button"
                     className="btn btn-info text-decoration-none">
                 <Link to="/stationers/sellers" className="text-decoration-none">Seller</Link>
@@ -28,10 +28,22 @@ useEffect(() => {
                 <Link to="/stationers/buyers" className="text-decoration-none">Buyer</Link>
             </button>
 
-            {stationers.length > 0 && <Table
-                rows={Object.keys(stationers[0])}
-                data={stationers}
-            ></Table>}
+            {(() => {
+                if (stationers.length > 0) {
+                    return (
+                        <Table
+                            rows={Object.keys(stationers[0])}
+                            data={stationers}
+                        ></Table>
+                    )
+                } else {
+                    return (
+                        <div className="alert alert-info" role="alert">
+                            No Record Found!
+                        </div>
+                    )
+                }
+            })()}
 
         </div>
     )

@@ -7,6 +7,9 @@ import Home from './pages/Home';
 import NotFound from "./pages/NotFound";
 import Example from "./pages/Example";
 import Stationer from "./pages/stationers";
+import Orders from "./pages/orders";
+import Sellers from "./pages/Seller";
+import Buyers from "./pages/Buyers";
 
 function App() {
   return (
@@ -14,7 +17,9 @@ function App() {
     <Routes>
       <Route path="/" element={<Home/>}></Route>
       <Route path="/stationers" element={<Stationer/>}></Route>
-      <Route path="/orders" element={<Example/>}></Route>
+      <Route path="/orders" element={<Orders/>}></Route>
+      <Route path="/stationers/sellers" element={<Sellers/>}></Route>
+      <Route path="/stationers/buyers" element={<Buyers/>}></Route>
       <Route path='*' element={<NotFound />}/>
     </Routes>
     </>
