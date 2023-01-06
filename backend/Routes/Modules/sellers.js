@@ -36,25 +36,19 @@ sellers_router.get('/read', async (req, res) => {
 
 })
 
-sellers_router.post('/route2deneme',  async (req, res) => {
-        res.status(201).json({
-            "message": "routre 2 deneme mesaj",
-        })
-
-})
-
-sellers_router.get('/read', async (req, res) => {
-
+sellers_router.post('/create',  async (req, res) => {
     try {
-        const result = await db.query("select * From Stationers s inner join Sellers se on s.StationerID = se.sStationerID inner join Addresses a on a.AddressID= s.AddressID\n")
-        res.status(200).json({
-            "message": "tüm satıcılar listelendi",
-            "result" : result.recordset
+        //seller otomatik atiyor, warehouseID ekliyor.
+        let query = `insert into Sellers  (WarehouseID) values ('${req.body.WarehouseID}')`;
+        const result = await db.query(query)
+        res.status(201).json({
+            "message": "yeni seller oluşturuldu"
         })
     } catch (err) {
         console.error(`Error while getting programming languages `, err.message);
         res.status(400).json({
-            "message": "hata"
+            "message": "hata",
+            "err" : err.message
         })
     }
 
@@ -62,7 +56,8 @@ sellers_router.get('/read', async (req, res) => {
 
 sellers_router.put('/update',  async (req, res) => {
     try {
-        let query = `update Sellers set sStationerId  = '${req.body.sStationerId }'
+        // sStationerId'nin warehousunu guncelliyor
+        let query = `update Sellers set WarehouseID   = '${req.body.WarehouseID }'
             where sStationerID = '${req.body.sStationerId}'`;
         const result = await db.query(query)
         res.status(201).json({
