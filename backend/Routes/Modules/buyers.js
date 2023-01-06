@@ -41,7 +41,7 @@ buyers_router.get('/read', async (req, res) => {
 
 buyers_router.post('/create',  async (req, res) => {
     try {
-        let query = `insert into Buyers (bStationerId) values ('${req.body.bStationerId}')`;
+        let query = `INSERT INTO [Buyers] DEFAULT VALUES;`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "yeni satıcı oluşturuldu"
@@ -72,9 +72,10 @@ buyers_router.put('/update',  async (req, res) => {
     }
 
 })
+//DELETE from  Buyers where bStationerId = '${req.body.sStationerId}'}
 buyers_router.delete('/delete',  async (req, res) => {
     try {
-        let query = `DELETE from  Buyers where bStationerID = '${req.body.bStationerId}'`;
+        let query = `DELETE from  Buyers where bStationerId = '${req.body.bStationerId}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "alıcı silindi"
