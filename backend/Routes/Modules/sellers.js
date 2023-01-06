@@ -61,7 +61,7 @@ sellers_router.get('/read', async (req, res) => {
 
 })
 
-buyers_router.post('/create',  async (req, res) => {
+sellers_router.post('/create',  async (req, res) => {
     try {
         let query = `insert into Sellers  (sStationerId) values ('${req.body.sStationerId}')`;
         const result = await db.query(query)
