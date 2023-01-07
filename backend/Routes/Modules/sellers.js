@@ -4,10 +4,10 @@ const {db} = require("../../db");
 const sellers_router = express.Router()
 
 //seller_read
-sellers_router.get('/read', async (req, res) => {
+sellers_router.get('/', async (req, res) => {
 
     try {
-       const result = await db.query("select * from Sellers")
+       const result = await db.query("select * from Sellers inner join Stationers on Stationers.StationerID = Sellers.sStationerID inner join Addresses on Addresses.AddressID = Stationers.AddressID")
         res.status(200).json({
             "message": "tüm satıcılar listelendi",
             "result" : result.recordset

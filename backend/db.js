@@ -2,7 +2,7 @@ const sql = require('mssql/msnodesqlv8')
 
 const pool = new sql.ConnectionPool({
     database: 'StationerManagementSystem',
-    server: 'ENES\\MSSQLSERVER1',
+    server: 'DESKTOP-633CT7F',
     driver: 'msnodesqlv8',
     options: {
         trustedConnection: true

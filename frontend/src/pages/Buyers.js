@@ -5,21 +5,20 @@ import Table from "../components/table";
 import {Link} from "react-router-dom";
 import Sellers from "./Seller";
 
-export default function Stationer() {
+export default function Buyers() {
     const [stationers, setStationers] = useState([])
 
     useEffect(() => {
-            axios.get("http://localhost:8000/api/stationers")
-                .then(res => setStationers(res.data.result))
-                .catch((err) => {
-                    console.log(err);
-                })
-        }, [])
-
+        axios.get("http://localhost:8000/api/buyers")
+            .then(res => setStationers(res.data.result))
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
 
     return (
         <div>
-         <Navbar></Navbar>
+            <Navbar></Navbar>
             <button type="button"
                     className="btn btn-info text-decoration-none">
                 <Link to="/stationers/sellers" className="text-decoration-none">Seller</Link>
@@ -35,7 +34,6 @@ export default function Stationer() {
                         <Table
                             rows={Object.keys(stationers[0])}
                             data={stationers}
-                            delete_route="http://localhost:8000/api/stationers/delete"
                         ></Table>
                     )
                 } else {
@@ -46,6 +44,7 @@ export default function Stationer() {
                     )
                 }
             })()}
+
         </div>
     )
 }

@@ -1,39 +1,63 @@
 import bootstrap from "bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from "axios";
+import {useState} from "react";
 
 export default function Table(props) {
+
+    const [tableData,setTableData] = useState(props.data)
+    const delete_action = async (e, props, id, column) => {
+        await axios.delete(props.delete_route, {
+           data : {  [column] : id}
+        })
+            .then((res) => {
+                const newList = tableData.filter((item) => {
+                    return item[column] !== id
+                });
+                setTableData(newList);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        console.log("delete tıklandı" + props.rows)
+    }
+
     return (
         <div className="container">
             <table className="table table-hover ">
                 <thead>
                 <tr>
-                    {props.rows}
-
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    {props.rows.map((row, i) => (
+                        <th scope="col" key={i}>{row}</th>
+                    ))}
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry the Bird</td>
-                    <td>@fat</td>
-                    <td>@twitter</td>
-                </tr>
+
+                {tableData.map((data, i) => (
+                    <tr key={i}>
+                        {Object.keys(data).map((key, index) => (
+                            <td>{data[key]}</td>
+                        ))}
+
+                        <td>
+                            <button type="button"
+                                    className="btn btn-outline-primary btn-sm"
+                                    style={{marginLeft: 5, marginRight: 5}}>Edit
+                            </button>
+
+                            <button type="button"
+                                    className="btn btn-outline-danger btn-sm"
+                                    style={{marginRight: 10}}
+                                    onClick={event => delete_action(event,props,data[props.rows[0]],props.rows[0])}
+                            >Delete
+                            </button>
+                        </td>
+
+
+                    </tr>
+                ))}
+
                 </tbody>
             </table>
         </div>
