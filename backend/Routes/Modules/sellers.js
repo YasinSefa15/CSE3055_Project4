@@ -23,8 +23,11 @@ sellers_router.get('/', async (req, res) => {
 
 sellers_router.post('/create',  async (req, res) => {
     try {
+        console.log(req.body)
+
+        const WarehouseID = parseInt(req.body.inputs.WarehouseID)
         //seller otomatik atiyor, warehouseID ekliyor.
-        let query = `insert into Sellers  (WarehouseID) values ('${req.body.WarehouseID}')`;
+        let query = `insert into Sellers  (WarehouseID) values ('${WarehouseID}')`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "yeni seller oluşturuldu"
@@ -42,8 +45,11 @@ sellers_router.post('/create',  async (req, res) => {
 sellers_router.put('/update',  async (req, res) => {
     try {
         // sStationerId'nin warehousunu guncelliyor
-        let query = `update Sellers set WarehouseID   = '${req.body.WarehouseID }'
-            where sStationerID = '${req.body.sStationerId}'`;
+        console.log(req.body)
+        const WarehouseID = parseInt(req.body.inputs.WarehouseID)
+        const sStationerID = parseInt(req.body.inputs.sStationerID)
+        let query = `update Sellers set WarehouseID   = '${WarehouseID }'
+            where sStationerID = '${sStationerId}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "satıcı güncellendi"
