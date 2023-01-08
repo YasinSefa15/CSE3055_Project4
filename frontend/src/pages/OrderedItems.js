@@ -2,14 +2,13 @@ import axios from "axios"
 import {useEffect, useState} from "react";
 import Navbar from "../components/navbar";
 import Table from "../components/table";
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 
 export default function OrderedItems(props) {
     const [orderedItems, setOrderedItems] = useState([])
-
-    useEffect((props) => {
-        console.log(<props className="param"></props>)
-        axios.get("http://localhost:8000/api/orders/items/" + props.param)
+    let { id } = useParams();
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/orders/items/" + id)
             .then(res => setOrderedItems(res.data.result))
             .catch((err) => {
                 console.log(err);
@@ -22,14 +21,14 @@ export default function OrderedItems(props) {
             <NavLink
                 to={"/create"}
                 state={{
-                    requested_route: "http://localhost:8000/api/orders/create",
-                    rows : ["AddressID","sStationerID","bStationerID","InvoiceID"],
+                    requested_route: "http://localhost:8000/api/orders/items/create",
+                    rows : ["ItemID","Quantity","OrderID"],
                 }}
             >
                 <button type="button"
                         className="btn btn-outline-primary btn-sm"
                         style={{marginLeft: 5, marginRight: 5}}
-                >Add Order
+                >Add Item To Order
                 </button>
             </NavLink>
             <NavLink

@@ -86,13 +86,14 @@ order_router.delete('/delete',  async (req, res) => {
 })
 
 
-order_router.delete('/items/:id',  async (req, res) => {
+order_router.get('/items/:id',  async (req, res) => {
     try {
-        console.log(req.params)
-        let query = `DELETE from  Addresses where AddressID = '${req.body.AddressID}'`;
+        const id = parseInt(req.params.id)
+        let query = `select * from OrderedItems where OrderID = '${id}'`;
         const result = await db.query(query)
         res.status(201).json({
-            "message": "sipariş silindi"
+            "message": "sipariş silindi",
+            "result" : result.recordset
         })
     } catch (err) {
         console.error(`Error while getting programming languages `, err.message);
@@ -103,6 +104,28 @@ order_router.delete('/items/:id',  async (req, res) => {
     }
 
 })
+
+order_router.put('/items/:id',  async (req, res) => {
+    try {
+        const id = parseInt(req.params.id)
+        const ItemID = parseInt(req.params.ItemID)
+        const Quantity = parseInt(req.params.Quantity)
+        let query = `update OrderedItems set Quantity = '${Quantity}', ItemID = '${ItemID}' where OrderID = '${id}'`;
+        const result = await db.query(query)
+        res.status(201).json({
+            "message": "sipariş silindi",
+            "result" : result.recordset
+        })
+    } catch (err) {
+        console.error(`Error while getting programming languages `, err.message);
+        res.status(400).json({
+            "message": "hata",
+            "err" : err.message
+        })
+    }
+
+})
+
 
 exports.routes = order_router
 
