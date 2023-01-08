@@ -7,7 +7,7 @@ const stationer_router = express.Router()
 stationer_router.get('/', async (req, res) => {
 
     try {
-        const result = await db.query("select Stationers.AddressID,Stationers.StationerID from Stationers inner join Addresses on Stationers.AddressId = Addresses.AddressID  ")
+        const result = await db.query("select Stationers.StationerID,Stationers.AddressID,Addresses.City,Addresses.Address,Addresses.sName from Stationers inner join Addresses on Stationers.AddressId = Addresses.AddressID  ")
         res.status(200).json({
             "message": "tüm satıcılar listelendi",
             "result" : result.recordset
