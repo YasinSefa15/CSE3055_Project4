@@ -24,7 +24,9 @@ stationer_router.get('/', async (req, res) => {
 //insert yapılacaksa post olmalı
 stationer_router.post('/create',  async (req, res) => {
     try {
-        let query = `insert into Stationers  (AddressID) values ('${req.body.address_id}')`;
+        console.log(req.body)
+        const AddressID =parseInt(req.body.inputs.AddressID)
+        let query = `insert into Stationers  (AddressID) values ('${AddressID}')`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "yeni kırtasiyeci oluşturuldu"
