@@ -4,12 +4,13 @@ import Navbar from "../components/navbar";
 import Table from "../components/table";
 import {NavLink} from "react-router-dom";
 
-export default function Orders() {
-    const [orders, setOrders] = useState([])
+export default function OrderedItems(props) {
+    const [orderedItems, setOrderedItems] = useState([])
 
-    useEffect(() => {
-        axios.get("http://localhost:8000/api/orders")
-            .then(res => setOrders(res.data.result))
+    useEffect((props) => {
+        console.log(<props className="param"></props>)
+        axios.get("http://localhost:8000/api/orders/items/" + props.param)
+            .then(res => setOrderedItems(res.data.result))
             .catch((err) => {
                 console.log(err);
             })
@@ -45,11 +46,11 @@ export default function Orders() {
                 </button>
             </NavLink>
             {(() => {
-                if (orders.length > 0) {
+                if (orderedItems.length > 0) {
                     return (
                         <Table
-                            rows={Object.keys(orders[0])}
-                            data={orders}
+                            rows={Object.keys(orderedItems[0])}
+                            data={orderedItems}
                             redirect_route="/orders/"
                         ></Table>
                     )

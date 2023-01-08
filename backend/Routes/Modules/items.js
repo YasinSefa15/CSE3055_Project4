@@ -72,9 +72,16 @@ items_router.put('/update',  async (req, res) => {
         console.log(req.body)
         const Price = parseInt(req.body.inputs.Price)
         const Currency = String(req.body.inputs.Currency)
+        const ItemID = parseInt(req.body.inputs.ItemID)
+        const ItemCode = String(req.body.inputs.ItemCode)
+        const ItemName = String(req.body.inputs.ItemName)
+        const Brand = String(req.body.inputs.Brand)
+        const MainGroup = String(req.body.inputs.MainGroup)
         // only update price and currency
-        let query = `update Items set Price  = '${req.body.Price}',Currency  = '${req.body.Currency}'
-            where ItemID  = '${req.body.ItemID}'`;
+        let query = `update Items set Price  = '${Price}',Currency  = '${Currency}'
+            ,ItemCode  = '${req.body.inputs.ItemCode}',ItemName  = '${ItemName}'
+            ,Brand  = '${Brand}' ,MainGroup  = '${MainGroup}'
+            where ItemID  = '${ItemID}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "urun güncellendi"

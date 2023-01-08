@@ -8,7 +8,7 @@ export default function Invoices() {
     const [invoices, setInvoices] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/invoices")
+        axios.get("http://localhost:8000/api/invoices/read")
             .then(res => setInvoices(res.data.result))
             .catch((err) => {
                 console.log(err);

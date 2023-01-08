@@ -86,5 +86,23 @@ order_router.delete('/delete',  async (req, res) => {
 })
 
 
+order_router.delete('/items/:id',  async (req, res) => {
+    try {
+        console.log(req.params)
+        let query = `DELETE from  Addresses where AddressID = '${req.body.AddressID}'`;
+        const result = await db.query(query)
+        res.status(201).json({
+            "message": "sipariş silindi"
+        })
+    } catch (err) {
+        console.error(`Error while getting programming languages `, err.message);
+        res.status(400).json({
+            "message": "hata",
+            "err" : err.message
+        })
+    }
+
+})
+
 exports.routes = order_router
 

@@ -18,6 +18,7 @@ export default function Table(props) {
                 setTableData(newList);
             })
             .catch((err) => {
+                alert(JSON.stringify(err.message))
                 console.log(err);
             })
         console.log("delete tıklandı" + props.rows)
@@ -37,7 +38,7 @@ export default function Table(props) {
                 <tbody>
 
                 {tableData.map((data, i) => (
-                    <tr >
+                    <tr key={Math.floor(Math.random() * 4000)}>
                         {Object.keys(data).map((key, index) => {
                             if (index === 0){
                                 return  (<td >
@@ -49,7 +50,7 @@ export default function Table(props) {
 
                         })}
 
-                        <td>
+                        <td key={Math.floor(Math.random() * 4000)}>
                             <NavLink
                                 to={"/update"}
                                 state={{

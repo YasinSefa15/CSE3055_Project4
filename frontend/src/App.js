@@ -13,6 +13,7 @@ import UpdateForm from "./pages/UpdateForm";
 import CreatePage from "./pages/CreatePage";
 import Invoices from "./pages/Invoices";
 import Addresses from "./pages/Addresses";
+import OrderedItems from "./pages/OrderedItems";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/stationers" element={<Stationer/>}></Route>
       <Route path="/addresses" element={<Addresses/>}></Route>
       <Route path="/orders" element={<Orders/>}></Route>
+      <Route path="/orders/:id" element={<OrderedItems/>}></Route>
       <Route path="/invoices" element={<Invoices/>}></Route>
       <Route path="/stationers/sellers" element={<Sellers/>}></Route>
       <Route path="/stationers/buyers" element={<Buyers/>}></Route>
