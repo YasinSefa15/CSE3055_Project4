@@ -11,6 +11,7 @@ invoices_router.post('/create',  async (req, res) => {
         const InvoiceID = parseInt(req.body.inputs.InvoiceID)
         const e_invoice =parseInt(req.body.inputs.e_invoice)
         const TotalPrice = parseInt(req.body.inputs.TotalPrice)
+        const created_at = String(req.body.inputs.created_at)
         let query = `INSERT INTO Invoices (InvoiceID, e_invoice,TotalPrice,created_at)
 VALUES ('${InvoiceID}','${e_invoice}','${TotalPrice}','${created_at}',`;
         const result = await db.query(query)

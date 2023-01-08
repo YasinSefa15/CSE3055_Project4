@@ -7,7 +7,7 @@ const stationer_router = express.Router()
 stationer_router.get('/', async (req, res) => {
 
     try {
-        const result = await db.query("select * from Stationers inner join Addresses on Stationers.AddressId = Addresses.AddressID  ")
+        const result = await db.query("select Stationers.AddressID,Stationers.StationerID from Stationers inner join Addresses on Stationers.AddressId = Addresses.AddressID  ")
         res.status(200).json({
             "message": "tüm satıcılar listelendi",
             "result" : result.recordset
@@ -44,8 +44,10 @@ stationer_router.post('/create',  async (req, res) => {
 //update işlemi için put
 stationer_router.put('/update',  async (req, res) => {
     try {
-        let query = `update Stationers set AddressID  = '${req.body.address_id}'
-            where StationerID = '${req.body.stationer_id}'`;
+        const AddressID = parseInt(req.body.inputs.AddressID)
+        const sStationerID = parseInt(req.body.inputs.sStationerID)
+        let query = `update Stationers set AddressID  = '${AddressID}'
+            where StationerID = '${sStationerID}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "kırtasiyeci güncellendi"
