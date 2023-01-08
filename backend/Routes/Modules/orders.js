@@ -47,8 +47,13 @@ order_router.post('/create',  async (req, res) => {
 })
 order_router.put('/update',  async (req, res) => {
     try {
-        let query = `update Addresses set  sName ='${req.body.sName}',City = '${req.body.City}',
-            Address ='${req.body.Address}' WHERE AddressID  = '${req.body.AddressID}'`;
+        console.log(req.body)
+        const AddressID = parseInt(req.body.inputs.AddressID)
+        const City = String(req.body.inputs.City)
+        const Address =String(req.body.inputs.Address)
+        const sName = String(req.body.inputs.sName)
+        let query = `update Addresses set  sName ='${sName}',City = '${City}',
+            Address ='${Address}' WHERE AddressID  = '${AddressID}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "sipariş güncellendi"
