@@ -5,12 +5,12 @@ import Table from "../components/table";
 import {Link} from "react-router-dom";
 import Sellers from "./Seller";
 
-export default function Buyers() {
-    const [stationers, setStationers] = useState([])
+export default function Items() {
+    const [items, setItems] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/buyers")
-            .then(res => setStationers(res.data.result))
+        axios.get("http://localhost:8000/api/items")
+            .then(res => setItems(res.data.result))
             .catch((err) => {
                 console.log(err);
             })
@@ -21,20 +21,17 @@ export default function Buyers() {
             <Navbar></Navbar>
             <button type="button"
                     className="btn btn-info text-decoration-none">
-                <Link to="/stationers/sellers" className="text-decoration-none">Seller</Link>
-            </button>
-            <button type="button"
-                    className="btn btn-info text-decoration-none">
-                <Link to="/stationers/buyers" className="text-decoration-none">Buyer</Link>
+                <Link to="/items/create" className="text-decoration-none">Add item</Link>
             </button>
 
             {(() => {
-                if (stationers.length > 0) {
+                if (items.length > 0) {
                     return (
                         <Table
-                            rows={Object.keys(stationers[0])}
-                            data={stationers}
-                            delete_route="http://localhost:8000/api/buyers/delete"
+                            rows={Object.keys(items[0])}
+                            data={items}
+                            delete_route="http://localhost:8000/api/items/delete"
+                            update_route="/items/update"
                         ></Table>
                     )
                 } else {

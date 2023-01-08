@@ -5,7 +5,7 @@ const {db} = require("../../db");
 
 const items_router = express.Router()
 
-items_router.get('/read', async (req, res) => {
+items_router.get('/', async (req, res) => {
 
     try {
         const result = await db.query("select * from Items")
@@ -42,7 +42,8 @@ VALUES ('${req.body.ItemCode}','${req.body.ItemName}','${req.body.Brand}','${req
 items_router.delete('/delete',  async (req, res) => {
     try {
         // itemid de oalbilir kod da oalbilir
-        let query = `DELETE FROM [Items] WHERE ItemCode = '${req.body.ItemCode}'`;
+        const ItemID = parseInt(req.body.ItemID)
+        let query = `DELETE FROM [Items] WHERE ItemCode = '${req.body.ItemID}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "urun silindi"

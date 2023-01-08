@@ -2,6 +2,7 @@ import bootstrap from "bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import {useState} from "react";
+import {NavLink} from "react-router-dom";
 
 export default function Table(props) {
 
@@ -22,6 +23,7 @@ export default function Table(props) {
         console.log("delete tıklandı" + props.rows)
     }
 
+
     return (
         <div className="container">
             <table className="table table-hover ">
@@ -41,11 +43,12 @@ export default function Table(props) {
                         ))}
 
                         <td>
-                            <button type="button"
-                                    className="btn btn-outline-primary btn-sm"
-                                    style={{marginLeft: 5, marginRight: 5}}>Edit
-                            </button>
-
+                            <NavLink to={props.update_route + "?id=" + data[props.rows[0]]}>
+                                <button type="button"
+                                        className="btn btn-outline-primary btn-sm"
+                                        style={{marginLeft: 5, marginRight: 5}}>Edit
+                                </button>
+                            </NavLink>
                             <button type="button"
                                     className="btn btn-outline-danger btn-sm"
                                     style={{marginRight: 10}}

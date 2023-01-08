@@ -8,6 +8,7 @@ import Stationer from "./pages/stationers";
 import Orders from "./pages/orders";
 import Sellers from "./pages/Seller";
 import Buyers from "./pages/Buyers";
+import Items from "./pages/Items";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/orders" element={<Orders/>}></Route>
       <Route path="/stationers/sellers" element={<Sellers/>}></Route>
       <Route path="/stationers/buyers" element={<Buyers/>}></Route>
+      <Route path="/items" element={<Items/>}></Route>
       <Route path='*' element={<NotFound />}/>
     </Routes>
     </>
