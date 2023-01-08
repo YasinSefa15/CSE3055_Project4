@@ -32,7 +32,7 @@ export default function Stationer() {
                 to={"/create"}
                 state={{
                     requested_route: "http://localhost:8000/api/stationers/create",
-                    rows : ["name","phone"],
+                    rows : ["AddressID","phone"],
                 }}
             >
                 <button type="button"

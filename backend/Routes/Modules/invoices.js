@@ -40,3 +40,5 @@ invoices_router.delete('/delete',  async (req, res) => {
     }
 
 })
+
+exports.routes = invoices_router
