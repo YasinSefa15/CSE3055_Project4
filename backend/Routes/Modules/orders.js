@@ -11,7 +11,7 @@ order_router.get('/', async (req, res) => {
     try {
         const result = await db.query("select * from Orders")
         res.status(200).json({
-            "message": "tüm adresler listelendi",
+            "message": "tüm siparişler listelendi",
             "result" : result.recordset
         })
     } catch (err) {
@@ -29,7 +29,7 @@ order_router.post('/create',  async (req, res) => {
             VALUES ('${req.body.City}', '${req.body.Address}', '${req.body.sName}')`;
         const result = await db.query(query)
         res.status(201).json({
-            "message": "yeni address oluşturuldu"
+            "message": "yeni sipariş oluşturuldu"
         })
     } catch (err) {
         console.error(`Error while getting programming languages `, err.message);
@@ -46,7 +46,7 @@ order_router.put('/update',  async (req, res) => {
             Address ='${req.body.Address}' WHERE AddressID  = '${req.body.AddressID}'`;
         const result = await db.query(query)
         res.status(201).json({
-            "message": "address güncellendi"
+            "message": "sipariş güncellendi"
         })
     } catch (err) {
         console.error(`Error while getting programming languages `, err.message);
@@ -63,7 +63,7 @@ order_router.delete('/delete',  async (req, res) => {
         let query = `DELETE from  Addresses where AddressID = '${req.body.AddressID}'`;
         const result = await db.query(query)
         res.status(201).json({
-            "message": "address silindi"
+            "message": "sipariş silindi"
         })
     } catch (err) {
         console.error(`Error while getting programming languages `, err.message);
