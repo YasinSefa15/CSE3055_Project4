@@ -2,14 +2,15 @@ import axios from "axios"
 import {useEffect, useState} from "react";
 import Navbar from "../components/navbar";
 import Table from "../components/table";
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
+import Sellers from "./Seller";
 
-export default function Orders() {
-    const [orders, setOrders] = useState([])
+export default function Items() {
+    const [items, setItems] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/orders")
-            .then(res => setOrders(res.data.result))
+        axios.get("http://localhost:8000/api/items")
+            .then(res => setItems(res.data.result))
             .catch((err) => {
                 console.log(err);
             })
@@ -18,25 +19,29 @@ export default function Orders() {
     return (
         <div>
             <Navbar></Navbar>
+
             <NavLink
                 to={"/create"}
                 state={{
-                    requested_route: "http://localhost:8000/api/orders/create",
-                    rows : ["AddressID","sStationerID","bStationerID","InvoiceID"],
+                    requested_route: "http://localhost:8000/api/items/create",
+                    rows : ["name","phone"],
                 }}
             >
                 <button type="button"
                         className="btn btn-outline-primary btn-sm"
                         style={{marginLeft: 5, marginRight: 5}}
-                >Add Order
+                >Add Item
                 </button>
             </NavLink>
+
             {(() => {
-                if (orders.length > 0) {
+                if (items.length > 0) {
                     return (
                         <Table
-                            rows={Object.keys(orders[0])}
-                            data={orders}
+                            rows={Object.keys(items[0])}
+                            data={items}
+                            delete_route="http://localhost:8000/api/items/delete"
+                            update_route="http://localhost:8000/api/items/update"
                         ></Table>
                     )
                 } else {
@@ -47,7 +52,6 @@ export default function Orders() {
                     )
                 }
             })()}
-
 
         </div>
     )

@@ -8,7 +8,7 @@ const {db} = require("../../db");
 buyers_router.get('/', async (req, res) => {
 
     try {
-        const result = await db.query("select * from Buyers inner join Stationers on Stationers.StationerID = Buyers.sStationerID inner join Addresses on Addresses.AddressID = Stationers.AddressID")
+        const result = await db.query("select * from Buyers inner join Stationers on Stationers.StationerID = Buyers.bStationerID inner join Addresses on Addresses.AddressID = Stationers.AddressID")
         res.status(200).json({
             "message": "tüm alıcılar listelendi",
             "result" : result.recordset
@@ -60,7 +60,8 @@ buyers_router.put('/update',  async (req, res) => {
 //DELETE from  Buyers where bStationerId = '${req.body.sStationerId}'}
 buyers_router.delete('/delete',  async (req, res) => {
     try {
-        let query = `DELETE from  Buyers where bStationerId = '${req.body.bStationerId}'`;
+        const StationerID = parseInt(req.body.bStationerID)
+        let query = `DELETE from  Buyers where bStationerId = '${StationerID}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "alıcı silindi"

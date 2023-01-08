@@ -38,6 +38,7 @@ export default function Sellers() {
                         <Table
                             rows={Object.keys(seller[0])}
                             data={seller}
+                            delete_route="http://localhost:8000/api/sellers/delete"
                         ></Table>
                     )
                 } else {

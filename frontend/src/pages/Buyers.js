@@ -34,6 +34,7 @@ export default function Buyers() {
                         <Table
                             rows={Object.keys(stationers[0])}
                             data={stationers}
+                            delete_route="http://localhost:8000/api/buyers/delete"
                         ></Table>
                     )
                 } else {

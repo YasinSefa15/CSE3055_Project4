@@ -2,6 +2,7 @@ import bootstrap from "bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import {useState} from "react";
+import {NavLink} from "react-router-dom";
 
 export default function Table(props) {
 
@@ -22,13 +23,14 @@ export default function Table(props) {
         console.log("delete tıklandı" + props.rows)
     }
 
+
     return (
         <div className="container">
             <table className="table table-hover ">
                 <thead>
                 <tr>
                     {props.rows.map((row, i) => (
-                        <th scope="col" key={i}>{row}</th>
+                        <th scope="col" key={i + row}>{row}</th>
                     ))}
                 </tr>
                 </thead>
@@ -37,15 +39,26 @@ export default function Table(props) {
                 {tableData.map((data, i) => (
                     <tr key={i}>
                         {Object.keys(data).map((key, index) => (
-                            <td>{data[key]}</td>
+                            <td >{data[key]}</td>
                         ))}
 
                         <td>
-                            <button type="button"
-                                    className="btn btn-outline-primary btn-sm"
-                                    style={{marginLeft: 5, marginRight: 5}}>Edit
-                            </button>
-
+                            <NavLink
+                                to={"/update"}
+                                state={{
+                                    requested_route: props.update_route,
+                                    rows : props.rows,
+                                    key: props.rows[0],
+                                    id: data[props.rows[0]],
+                                    current_data : data
+                                }}
+                            >
+                                <button type="button"
+                                        className="btn btn-outline-primary btn-sm"
+                                        style={{marginLeft: 5, marginRight: 5}}
+                                >Edit
+                                </button>
+                            </NavLink>
                             <button type="button"
                                     className="btn btn-outline-danger btn-sm"
                                     style={{marginRight: 10}}
