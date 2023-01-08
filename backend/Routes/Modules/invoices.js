@@ -7,8 +7,12 @@ const {db} = require("../../db");
 
 invoices_router.post('/create',  async (req, res) => {
     try {
+        console.log(req.body)
+        const InvoiceID = parseInt(req.body.inputs.InvoiceID)
+        const e_invoice =parseInt(req.body.inputs.e_invoice)
+        const TotalPrice = parseInt(req.body.inputs.TotalPrice)
         let query = `INSERT INTO Invoices (InvoiceID, e_invoice,TotalPrice,created_at)
-VALUES ('${req.body.InvoiceID}','${req.body.e_invoice}','${req.body.TotalPrice}','${req.body.created_at}',`;
+VALUES ('${InvoiceID}','${e_invoice}','${TotalPrice}','${created_at}',`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "yeni fatura oluşturuldu"

@@ -26,9 +26,9 @@ address_router.get('/read', async (req, res) => {
 address_router.post('/create',  async (req, res) => {
     try {
         console.log(req.body)
-        const City = parseInt(req.body.inputs.City)
-        const Address =parseInt(req.body.inputs.Address)
-        const sName = parseInt(req.body.inputs.sName)
+        const City = String(req.body.inputs.City)
+        const Address =String(req.body.inputs.Address)
+        const sName = String(req.body.inputs.sName)
         let query = `INSERT INTO Addresses (City, Address, sName)
             VALUES ('${City}', '${Address}', '${sName}')`;
         const result = await db.query(query)
@@ -47,9 +47,9 @@ address_router.post('/create',  async (req, res) => {
 address_router.put('/update',  async (req, res) => {
     try {
         console.log(req.body)
-        const City = parseInt(req.body.inputs.City)
-        const Address =parseInt(req.body.inputs.Address)
-        const sName = parseInt(req.body.inputs.sName)
+        const City = String(req.body.inputs.City)
+        const Address =String(req.body.inputs.Address)
+        const sName = String(req.body.inputs.sName)
         let query = `update Addresses set  sName ='${sName}',City = '${City}',
             Address ='${Address}' WHERE AddressID  = '${req.body.AddressID}'`;
         const result = await db.query(query)
