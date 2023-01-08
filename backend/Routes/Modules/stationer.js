@@ -47,7 +47,7 @@ stationer_router.put('/update',  async (req, res) => {
         const AddressID = parseInt(req.body.inputs.AddressID)
         const sStationerID = parseInt(req.body.inputs.sStationerID)
         let query = `update Stationers set AddressID  = '${AddressID}'
-            where StationerID = '${sStationerID}'`;
+            where sStationerID = '${sStationerID}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "kırtasiyeci güncellendi"
