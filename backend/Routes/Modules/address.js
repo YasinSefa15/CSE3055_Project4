@@ -25,8 +25,12 @@ address_router.get('/read', async (req, res) => {
 
 address_router.post('/create',  async (req, res) => {
     try {
+        console.log(req.body)
+        const City = parseInt(req.body.inputs.City)
+        const Address =parseInt(req.body.inputs.Address)
+        const sName = parseInt(req.body.inputs.sName)
         let query = `INSERT INTO Addresses (City, Address, sName)
-            VALUES ('${req.body.City}', '${req.body.Address}', '${req.body.sName}')`;
+            VALUES ('${City}', '${Address}', '${sName}')`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "yeni address oluşturuldu"
