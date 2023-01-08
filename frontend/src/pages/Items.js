@@ -2,7 +2,7 @@ import axios from "axios"
 import {useEffect, useState} from "react";
 import Navbar from "../components/navbar";
 import Table from "../components/table";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import Sellers from "./Seller";
 
 export default function Items() {
@@ -31,7 +31,7 @@ export default function Items() {
                             rows={Object.keys(items[0])}
                             data={items}
                             delete_route="http://localhost:8000/api/items/delete"
-                            update_route="/items/update"
+                            update_route="http://localhost:8000/api/items/update"
                         ></Table>
                     )
                 } else {

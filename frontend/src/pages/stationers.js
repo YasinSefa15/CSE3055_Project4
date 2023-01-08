@@ -2,7 +2,7 @@ import axios from "axios"
 import {useEffect, useState} from "react";
 import Navbar from "../components/navbar";
 import Table from "../components/table";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import Sellers from "./Seller";
 
 export default function Stationer() {
@@ -28,7 +28,19 @@ export default function Stationer() {
                     className="btn btn-info text-decoration-none">
                 <Link to="/stationers/buyers" className="text-decoration-none">Buyer</Link>
             </button>
-
+            <NavLink
+                to={"/create"}
+                state={{
+                    requested_route: "http://localhost:8000/api/stationers/create",
+                    rows : ["name","phone"],
+                }}
+            >
+                <button type="button"
+                        className="btn btn-outline-primary btn-sm"
+                        style={{marginLeft: 5, marginRight: 5}}
+                >Edit
+                </button>
+            </NavLink>
             {(() => {
                 if (stationers.length > 0) {
                     return (
@@ -36,6 +48,7 @@ export default function Stationer() {
                             rows={Object.keys(stationers[0])}
                             data={stationers}
                             delete_route="http://localhost:8000/api/stationers/delete"
+                            update_route="http://localhost:8000/api/stationers/update"
                         ></Table>
                     )
                 } else {

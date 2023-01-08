@@ -43,10 +43,20 @@ export default function Table(props) {
                         ))}
 
                         <td>
-                            <NavLink to={props.update_route + "?id=" + data[props.rows[0]]}>
+                            <NavLink
+                                to={"/update"}
+                                state={{
+                                    requested_route: props.update_route,
+                                    rows : props.rows,
+                                    key: props.rows[0],
+                                    id: data[props.rows[0]],
+                                    current_data : data
+                                }}
+                            >
                                 <button type="button"
                                         className="btn btn-outline-primary btn-sm"
-                                        style={{marginLeft: 5, marginRight: 5}}>Edit
+                                        style={{marginLeft: 5, marginRight: 5}}
+                                >Edit
                                 </button>
                             </NavLink>
                             <button type="button"
