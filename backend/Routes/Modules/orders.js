@@ -25,8 +25,13 @@ order_router.get('/', async (req, res) => {
 
 order_router.post('/create',  async (req, res) => {
     try {
-        let query = `INSERT INTO Addresses (City, Address, sName)
-            VALUES ('${req.body.City}', '${req.body.Address}', '${req.body.sName}')`;
+        console.log(req.body)
+        const AddressID = parseInt(req.body.inputs.AddressID)
+        const sStationerID = parseInt(req.body.inputs.sStationerID)
+        const InvoiceID = parseInt(req.body.inputs.InvoiceID)
+        const bStationerID = parseInt(req.body.inputs.bStationerID)
+        let query = `INSERT INTO Orders (AddressID, sStationerID, bStationerID,InvoiceID)
+            VALUES ('${AddressID}', '${sStationerID}', '${bStationerID}','${InvoiceID}')`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "yeni sipariş oluşturuldu"
