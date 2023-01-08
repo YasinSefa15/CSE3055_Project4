@@ -15,13 +15,14 @@ export default function OrderedItems(props) {
             })
     }, [])
 
+
     return (
         <div>
             <Navbar></Navbar>
             <NavLink
                 to={"/create"}
                 state={{
-                    requested_route: "http://localhost:8000/api/orders/items/create",
+                    requested_route: "http://localhost:8000/api/orders/items/" + id,
                     rows : ["ItemID","Quantity","OrderID"],
                 }}
             >
@@ -51,6 +52,8 @@ export default function OrderedItems(props) {
                             rows={Object.keys(orderedItems[0])}
                             data={orderedItems}
                             redirect_route="/orders/"
+                            delete_route={"http://localhost:8000/api/orders/items/delete" + id}
+                            update_route={"http://localhost:8000/api/orders/items/update/" + id}
                         ></Table>
                     )
                 } else {

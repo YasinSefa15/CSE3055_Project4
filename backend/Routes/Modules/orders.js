@@ -48,12 +48,13 @@ order_router.post('/create',  async (req, res) => {
 order_router.put('/update',  async (req, res) => {
     try {
         console.log(req.body)
-        const AddressID = parseInt(req.body.inputs.AddressID)
-        const City = String(req.body.inputs.City)
-        const Address =String(req.body.inputs.Address)
-        const sName = String(req.body.inputs.sName)
-        let query = `update Addresses set  sName ='${sName}',City = '${City}',
-            Address ='${Address}' WHERE AddressID  = '${AddressID}'`;
+        console.log("---")
+        const OrderID = parseInt(req.body.inputs.OrderID)
+        const AddressID = String(req.body.inputs.AddressID)
+        const sStationerID =String(req.body.inputs.sStationerID)
+        const InvoiceID = String(req.body.inputs.InvoiceID)
+        let query = `update Orders set  AddressID ='${AddressID}',sStationerID = '${sStationerID}',
+            InvoiceID ='${InvoiceID}' WHERE OrderID  = '${OrderID}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "sipariş güncellendi"
@@ -105,7 +106,48 @@ order_router.get('/items/:id',  async (req, res) => {
 
 })
 
-order_router.put('/items/:id',  async (req, res) => {
+
+order_router.delete('/items/delete/:id',  async (req, res) => {
+    try {
+        const id = parseInt(req.params.id)
+        let query = `delete from OrderedItems where OrderID = '${id}'`;
+        const result = await db.query(query)
+        res.status(201).json({
+            "message": "sipariş silindi",
+            "result" : result.recordset
+        })
+    } catch (err) {
+        console.error(`Error while getting programming languages `, err.message);
+        res.status(400).json({
+            "message": "hata",
+            "err" : err.message
+        })
+    }
+
+})
+
+order_router.post('/items/:id',  async (req, res) => {
+    try {
+        const OrderID = parseInt(req.params.id)
+        const ItemID = parseInt(req.body.inputs.ItemID)
+        const Quantity = parseInt(req.body.inputs.Quantity)
+        let query = `INSERT INTO OrderedItems (OrderID,ItemID,Quantity) VALUES ('${OrderID}','${ItemID}','${Quantity}')   `;
+        const result = await db.query(query)
+        res.status(201).json({
+            "message": "sipariş silindi",
+            "result" : result.recordset
+        })
+    } catch (err) {
+        console.error(`Error while getting programming languages `, err.message);
+        res.status(400).json({
+            "message": "hata",
+            "err" : err.message
+        })
+    }
+
+})
+
+order_router.put('/items/update/:id',  async (req, res) => {
     try {
         const id = parseInt(req.params.id)
         const ItemID = parseInt(req.params.ItemID)
@@ -120,7 +162,7 @@ order_router.put('/items/:id',  async (req, res) => {
         console.error(`Error while getting programming languages `, err.message);
         res.status(400).json({
             "message": "hata",
-            "err" : err.message
+            "err" : "foreign key"
         })
     }
 

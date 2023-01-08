@@ -8,10 +8,12 @@ export default function Table(props) {
 
     const [tableData,setTableData] = useState(props.data)
     const delete_action = async (e, props, id, column) => {
+console.log(column)
         await axios.delete(props.delete_route, {
            data : {  [column] : id}
         })
             .then((res) => {
+                console.log()
                 const newList = tableData.filter((item) => {
                     return item[column] !== id
                 });

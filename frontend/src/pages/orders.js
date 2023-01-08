@@ -51,6 +51,8 @@ export default function Orders() {
                             rows={Object.keys(orders[0])}
                             data={orders}
                             redirect_route="/orders/"
+                            delete_route="http://localhost:8000/api/orders/delete"
+                            update_route="http://localhost:8000/api/orders/update"
                         ></Table>
                     )
                 } else {

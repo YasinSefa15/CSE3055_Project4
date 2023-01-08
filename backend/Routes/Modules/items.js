@@ -52,7 +52,8 @@ items_router.delete('/delete',  async (req, res) => {
     try {
         // itemid de oalbilir kod da oalbilir
         const ItemID = parseInt(req.body.ItemID)
-        let query = `DELETE FROM [Items] WHERE ItemCode = '${req.body.ItemID}'`;
+        console.log(req.body)
+        let query = `DELETE FROM Items WHERE ItemID = '${ItemID}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "urun silindi"
