@@ -40,16 +40,14 @@ export default function Table(props) {
                     <tr >
                         {Object.keys(data).map((key, index) => {
                             if (index === 0){
-
                                 return  (<td >
                                     <Link to={props.redirect_route + data[key]}> {data[key]}</Link>
                                 </td>)
+                            }else{
+                                return  <td >{data[key]}</td>
                             }
-                            return  <td >{data[key]}</td>
-                        }
 
-
-                        )}
+                        })}
 
                         <td>
                             <NavLink
