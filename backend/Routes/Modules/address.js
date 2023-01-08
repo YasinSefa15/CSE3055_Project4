@@ -46,8 +46,12 @@ address_router.post('/create',  async (req, res) => {
 })
 address_router.put('/update',  async (req, res) => {
     try {
-        let query = `update Addresses set  sName ='${req.body.sName}',City = '${req.body.City}',
-            Address ='${req.body.Address}' WHERE AddressID  = '${req.body.AddressID}'`;
+        console.log(req.body)
+        const City = parseInt(req.body.inputs.City)
+        const Address =parseInt(req.body.inputs.Address)
+        const sName = parseInt(req.body.inputs.sName)
+        let query = `update Addresses set  sName ='${sName}',City = '${City}',
+            Address ='${Address}' WHERE AddressID  = '${req.body.AddressID}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "address güncellendi"
