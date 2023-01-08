@@ -23,9 +23,18 @@ items_router.get('/', async (req, res) => {
 })
 items_router.post('/create',  async (req, res) => {
     try {
+        console.log(req.body)
+        const ItemCode = parseInt(req.body.inputs.ItemCode)
+        const ItemName = String(req.body.inputs.ItemName)
+        const Brand = String(req.body.inputs.Brand)
+        const MainGroup = String(req.body.inputs.MainGroup)
+        const SubGroup = String(req.body.inputs.SubGroup)
+        const Price = parseInt(req.body.inputs.Price)
+        const Currency = String(req.body.inputs.Currency)
+
         let query = `INSERT INTO Items (ItemCode, ItemName, Brand, MainGroup, SubGroup, Price, Currency)
-VALUES ('${req.body.ItemCode}','${req.body.ItemName}','${req.body.Brand}','${req.body.MainGroup}','${req.body.SubGroup}'
-,'${req.body.Price}','${req.body.Currency}')`;
+VALUES ('${ItemCode}','${ItemName}','${Brand}','${MainGroup}','${SubGroup}'
+,'${Price}','${Currency}')`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "yeni urun oluşturuldu"
@@ -60,6 +69,9 @@ items_router.delete('/delete',  async (req, res) => {
 
 items_router.put('/update',  async (req, res) => {
     try {
+        console.log(req.body)
+        const Price = parseInt(req.body.inputs.Price)
+        const Currency = String(req.body.inputs.Currency)
         // only update price and currency
         let query = `update Items set Price  = '${req.body.Price}',Currency  = '${req.body.Currency}'
             where ItemID  = '${req.body.ItemID}'`;

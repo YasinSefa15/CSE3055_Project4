@@ -42,8 +42,11 @@ buyers_router.post('/create',  async (req, res) => {
 })
 buyers_router.put('/update',  async (req, res) => {
     try {
-        let query = `update Buyers set bStationerId  = '${req.body.bStationerId }'
-            where sStationerID = '${req.body.sStationerId}'`;
+        console.log(req.body)
+        const sStationerID = parseInt(req.body.inputs.sStationerID)
+        const bStationerID = parseInt(req.body.inputs.bStationerID)
+        let query = `update Buyers set bStationerId  = '${bStationerId }'
+            where sStationerID = '${sStationerId}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "alıcı güncellendi"
