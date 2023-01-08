@@ -12,6 +12,7 @@ export default function UpdateForm(props) {
     const rows = state.rows;
     const key = state.key;
     const id = state.id;
+    const current_data = state.current_data;
     const [inputs, setInputs] = useState({[key] : id});
 
 
@@ -36,29 +37,25 @@ export default function UpdateForm(props) {
     return (
         <>
             <Navbar></Navbar>
-            {state.name}
 
             <form onSubmit={handleSubmit}>
                 {rows.map((row,i) => (
-                    <input type="text"
-                           name={row}
-                           onChange={handleChange}
-                           key={i}
-                    />
+                    <>
+                        <label>{row}
+                            <input type="text"
+                                   name={row}
+                                   onChange={handleChange}
+                                   placeholder={current_data[row]}
+                                   key={i}
+                            />
+
+                        </label>
+                        <br></br>
+                    </>
+
+
                 ))}
 
-                <label>row 1:
-                    <input type="text"
-                           name="id"
-                           onChange={handleChange}
-                    />
-                </label>
-                <label>row 1:
-                    <input type="text"
-                           name="bilgi"
-                           onChange={handleChange}
-                    />
-                </label>
                 <input type="submit"/>
             </form>
 

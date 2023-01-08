@@ -2,6 +2,7 @@ import axios from "axios"
 import {useEffect, useState} from "react";
 import Navbar from "../components/navbar";
 import Table from "../components/table";
+import {NavLink} from "react-router-dom";
 
 export default function Orders() {
     const [orders, setOrders] = useState([])
@@ -17,7 +18,19 @@ export default function Orders() {
     return (
         <div>
             <Navbar></Navbar>
-            sipariş butonu
+            <NavLink
+                to={"/create"}
+                state={{
+                    requested_route: "http://localhost:8000/api/orders/create",
+                    rows : ["AddressID","sStationerID","bStationerID","InvoiceID"],
+                }}
+            >
+                <button type="button"
+                        className="btn btn-outline-primary btn-sm"
+                        style={{marginLeft: 5, marginRight: 5}}
+                >Add Order
+                </button>
+            </NavLink>
             {(() => {
                 if (orders.length > 0) {
                     return (

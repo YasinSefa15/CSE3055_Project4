@@ -38,7 +38,7 @@ export default function Stationer() {
                 <button type="button"
                         className="btn btn-outline-primary btn-sm"
                         style={{marginLeft: 5, marginRight: 5}}
-                >Edit
+                >Add Stationer
                 </button>
             </NavLink>
             {(() => {

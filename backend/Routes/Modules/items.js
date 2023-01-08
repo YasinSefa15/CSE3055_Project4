@@ -61,7 +61,7 @@ items_router.delete('/delete',  async (req, res) => {
 items_router.put('/update',  async (req, res) => {
     try {
         // only update price and currency
-        let query = `update Items set Price  = '${req.body.Price}',Currency  = '${req.body.Currency}
+        let query = `update Items set Price  = '${req.body.Price}',Currency  = '${req.body.Currency}'
             where ItemID  = '${req.body.ItemID}'`;
         const result = await db.query(query)
         res.status(201).json({

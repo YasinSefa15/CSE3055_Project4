@@ -48,6 +48,19 @@ export default function Navbar() {
                         >
                             Items
                         </NavLink>
+
+                        <div style={{width: 10}}></div>
+
+                        <NavLink
+                            to="/invoices"
+                            className="nav-item text-decoration-none "
+                            style={({isActive}) => ({
+                                //backgroundColor: isActive ? activeColor : notActiveColor,
+                                color : isActive ? activeColor : notActiveColor,
+                            })}
+                        >
+                            Invioces
+                        </NavLink>
                     </div>
                 </div>
             </nav>

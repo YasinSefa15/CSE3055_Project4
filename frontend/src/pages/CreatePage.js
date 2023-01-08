@@ -7,6 +7,7 @@ import Sellers from "./Seller";
 
 export default function CreatePage(props) {
     const [inputs, setInputs] = useState({});
+    const {state} = useLocation()
     const requested_route = state.requested_route;
     const rows = state.rows;
 
@@ -18,39 +19,40 @@ export default function CreatePage(props) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await axios.post(requested_route,{inputs})
-            .then(res => setInputs(res.data.result))
+        await axios.post(requested_route, {inputs})
+            .then(res => {
+                console.log("--")
+                console.log(res.data)
+                alert(JSON.stringify(res.data, null, 4))
+            })
             .catch((err) => {
+                alert(err.message)
                 console.log(err);
             })
-        console.log(inputs)
-        alert(inputs);
+
     }
-
-
-    const location = useLocation();
-    const { state } = location;
-
 
     return (
         <>
             <Navbar></Navbar>
-            {state.name}
 
             <form onSubmit={handleSubmit}>
 
-                <label>row 1:
-                    <input type="text"
-                           name="id"
-                           onChange={handleChange}
-                    />
-                </label>
-                <label>row 1:
-                    <input type="text"
-                           name="bilgi"
-                           onChange={handleChange}
-                    />
-                </label>
+                {rows.map((row, i) => (
+                    <>
+                        <label>{row}
+                            <input type="text"
+                                   name={row}
+                                   onChange={handleChange}
+                                   key={i}
+                            />
+
+                        </label>
+                        <br></br>
+                    </>
+
+
+                ))}
                 <input type="submit"/>
             </form>
 

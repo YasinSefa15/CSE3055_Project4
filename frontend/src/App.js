@@ -11,6 +11,7 @@ import Buyers from "./pages/Buyers";
 import Items from "./pages/Items";
 import UpdateForm from "./pages/UpdateForm";
 import CreatePage from "./pages/CreatePage";
+import Invoices from "./pages/Invoices";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/" element={<Stationer/>}></Route>
       <Route path="/stationers" element={<Stationer/>}></Route>
       <Route path="/orders" element={<Orders/>}></Route>
+      <Route path="/invoices" element={<Invoices/>}></Route>
       <Route path="/stationers/sellers" element={<Sellers/>}></Route>
       <Route path="/stationers/buyers" element={<Buyers/>}></Route>
       <Route path="/items" element={<Items/>}></Route>

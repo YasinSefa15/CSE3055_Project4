@@ -30,7 +30,7 @@ export default function Table(props) {
                 <thead>
                 <tr>
                     {props.rows.map((row, i) => (
-                        <th scope="col" key={i}>{row}</th>
+                        <th scope="col" key={i + row}>{row}</th>
                     ))}
                 </tr>
                 </thead>
@@ -39,7 +39,7 @@ export default function Table(props) {
                 {tableData.map((data, i) => (
                     <tr key={i}>
                         {Object.keys(data).map((key, index) => (
-                            <td>{data[key]}</td>
+                            <td >{data[key]}</td>
                         ))}
 
                         <td>
