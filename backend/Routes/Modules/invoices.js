@@ -31,7 +31,7 @@ invoices_router.delete('/delete',  async (req, res) => {
     try {
 
         const InvoiceID = parseInt(req.body.InvoiceID)
-        let query = `DELETE FROM [Invoices] WHERE InvoiceID = '${req.body.InvoiceID}'`;
+        let query = `DELETE FROM [Invoices] WHERE InvoiceID = '${InvoiceID}'`;
         const result = await db.query(query)
         res.status(201).json({
             "message": "fatura silindi"
