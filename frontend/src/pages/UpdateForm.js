@@ -13,7 +13,8 @@ export default function UpdateForm(props) {
     const key = state.key;
     const id = state.id;
     const current_data = state.current_data;
-    const [inputs, setInputs] = useState({[key] : id});
+    const [inputs, setInputs] = useState(current_data);
+
 
 
     const handleChange = (event) => {
@@ -25,12 +26,16 @@ export default function UpdateForm(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         await axios.put(requested_route,{inputs})
-            .then(res => (console.log("success")))
+            .then(res => {
+                alert(JSON.stringify(res.data, null, 4))
+                console.log(res.data)
+            })
             .catch((err) => {
                 console.log(err);
+                alert(JSON.stringify(err.message))
             })
-        console.log(inputs)
-        alert(inputs);
+        console.log({"girdi" : inputs})
+
     }
 
 

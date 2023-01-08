@@ -2,7 +2,7 @@ import bootstrap from "bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import {useState} from "react";
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 export default function Table(props) {
 
@@ -37,10 +37,19 @@ export default function Table(props) {
                 <tbody>
 
                 {tableData.map((data, i) => (
-                    <tr key={i}>
-                        {Object.keys(data).map((key, index) => (
-                            <td >{data[key]}</td>
-                        ))}
+                    <tr >
+                        {Object.keys(data).map((key, index) => {
+                            if (index === 0){
+
+                                return  (<td >
+                                    <Link to={props.redirect_route + data[key]}> {data[key]}</Link>
+                                </td>)
+                            }
+                            return  <td >{data[key]}</td>
+                        }
+
+
+                        )}
 
                         <td>
                             <NavLink

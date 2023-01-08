@@ -24,7 +24,7 @@ export default function Items() {
                 to={"/create"}
                 state={{
                     requested_route: "http://localhost:8000/api/items/create",
-                    rows : ["name","phone"],
+                    rows : ["ItemCode","ItemName","Brand","MainGroup","SubGroup","Price","Currency"],
                 }}
             >
                 <button type="button"

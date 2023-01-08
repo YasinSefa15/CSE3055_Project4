@@ -5,40 +5,33 @@ import Table from "../components/table";
 import {Link, NavLink} from "react-router-dom";
 import Sellers from "./Seller";
 
-export default function Stationer() {
+export default function Addresses() {
     const [stationers, setStationers] = useState([])
 
     useEffect(() => {
-            axios.get("http://localhost:8000/api/stationers")
-                .then(res => setStationers(res.data.result))
-                .catch((err) => {
-                    console.log(err);
-                })
-        }, [])
+        axios.get("http://localhost:8000/api/address/read")
+            .then(res => setStationers(res.data.result))
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
 
 
     return (
         <div>
-         <Navbar></Navbar>
-            <button type="button"
-                    className="btn btn-info text-decoration-none">
-                <Link to="/stationers/sellers" className="text-decoration-none">Seller</Link>
-            </button>
-            <button type="button"
-                    className="btn btn-info text-decoration-none">
-                <Link to="/stationers/buyers" className="text-decoration-none">Buyer</Link>
-            </button>
+            <Navbar></Navbar>
+
             <NavLink
                 to={"/create"}
                 state={{
-                    requested_route: "http://localhost:8000/api/stationers/create",
-                    rows : ["AddressID"],
+                    requested_route: "http://localhost:8000/api/address/create",
+                    rows : ["City","Address","sName"],
                 }}
             >
                 <button type="button"
                         className="btn btn-outline-primary btn-sm"
                         style={{marginLeft: 5, marginRight: 5}}
-                >Add Stationer
+                >Create Address
                 </button>
 
             </NavLink>
@@ -49,8 +42,8 @@ export default function Stationer() {
                         <Table
                             rows={Object.keys(stationers[0])}
                             data={stationers}
-                            delete_route="http://localhost:8000/api/stationers/delete"
-                            update_route="http://localhost:8000/api/stationers/update"
+                            delete_route="http://localhost:8000/api/address/delete"
+                            update_route="http://localhost:8000/api/address/update"
                         ></Table>
                     )
                 } else {
